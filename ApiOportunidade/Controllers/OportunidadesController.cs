@@ -49,7 +49,22 @@ namespace ApiOportunidade.Controllers
 
             return oportunidade;
         }
+        [HttpGet("Data")]
+        public async Task<ActionResult<Oportunidade>> GetDuvidas(DateTime data)
+        {
+            if (_context.Oportunidade == null)
+            {
+                return NotFound();
+            }
+            var oportunidade = await _context.Oportunidade.Where(o => o.DataEntrega == data).FirstAsync();
 
+            if (oportunidade == null)
+            {
+                return NotFound();
+            }
+
+            return oportunidade;
+        }
         // PUT: api/Oportunidades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
